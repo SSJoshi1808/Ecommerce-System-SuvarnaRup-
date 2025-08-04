@@ -51,6 +51,35 @@ router.post("/", protect,admin, async (req, res) => {
         res.status(500).json({ error: "Error creating product" });
     }
 });
+
+// @route GET /api/products/search
+// @desc Search products by name, category, or collections
+// @access Public
+router.get("/search", async (req, res) => {
+    try {
+        const { q } = req.query;
+        
+        if (!q || q.trim() === '') {
+            return res.json([]);
+        }
+
+        const searchQuery = {
+            $or: [
+                { name: { $regex: q, $options: "i" } },
+                { category: { $regex: q, $options: "i" } },
+                { collections: { $regex: q, $options: "i" } },
+                { description: { $regex: q, $options: "i" } }
+            ]
+        };
+
+        const products = await Product.find(searchQuery).limit(10);
+        res.json(products);
+    } catch (error) {
+        console.error('Search error:', error);
+        res.status(500).json({ error: "Error searching products" });
+    }
+});
+
 // @route Put/api/product/:id
 //@desc update an exiting product id
 //@access private/admin
