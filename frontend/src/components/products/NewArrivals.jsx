@@ -145,6 +145,7 @@ const NewArrivals = () => {
             if (container) container.removeEventListener("scroll", updateScrollButtons);
         };
     }, [newArrivals]);
+    
     const getImageUrl = (imgArray) => {
         const firstImage = imgArray?.[0];
         if (!firstImage || typeof firstImage !== 'object') return null;
@@ -155,40 +156,40 @@ const NewArrivals = () => {
           .map(([, value]) => value);     // get values only
       
         return entries.join('');
-      };
+    };
       
 
     return (
-        <section>
-            <div className='container mx-auto text-center mb-10 relative'>
-                <h2 className='text-3xl font-bold mb-4'>Explore New Arrivals</h2>
-                <p className='text-lg text-gray-600 mb-8'>
+        <section className="px-4 sm:px-6">
+            <div className='container mx-auto text-center mb-6 sm:mb-10 relative'>
+                <h2 className='text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4'>Explore New Arrivals</h2>
+                <p className='text-sm sm:text-base lg:text-lg text-gray-600 mb-6 sm:mb-8'>
                     Newest Treasures Just Landed—Shop Now!
                 </p>
-                <div className='absolute right-3 bottom-[-30px] flex space-x-2'>
+                <div className='absolute right-2 sm:right-3 bottom-[-30px] flex space-x-1 sm:space-x-2'>
                     <button
                         onClick={() => scroll('left')}
-                        className={`p-2 rounded border bg-white text-black ${!canScrollLeft && 'opacity-50 cursor-not-allowed'}`}
+                        className={`p-1.5 sm:p-2 rounded border bg-white text-black hover:bg-gray-50 transition-colors ${!canScrollLeft && 'opacity-50 cursor-not-allowed'}`}
                         disabled={!canScrollLeft}
                     >
-                        <FiChevronLeft className='text-2xl' />
+                        <FiChevronLeft className='text-lg sm:text-xl lg:text-2xl' />
                     </button>
                     <button
                         onClick={() => scroll('right')}
-                        className={`p-2 rounded border bg-white text-black ${!canScrollRight && 'opacity-50 cursor-not-allowed'}`}
+                        className={`p-1.5 sm:p-2 rounded border bg-white text-black hover:bg-gray-50 transition-colors ${!canScrollRight && 'opacity-50 cursor-not-allowed'}`}
                         disabled={!canScrollRight}
                     >
-                        <FiChevronRight className='text-2xl' />
+                        <FiChevronRight className='text-lg sm:text-xl lg:text-2xl' />
                     </button>
                 </div>
             </div>
 
             <div
                 ref={scrollRef}
-                className='container mx-auto overflow-x-auto flex space-x-6 relative scroll-smooth no-scrollbar'
+                className='container mx-auto overflow-x-auto flex space-x-4 sm:space-x-6 relative scroll-smooth no-scrollbar'
             >
                 {newArrivals.length === 0 ? (
-                    <p className="text-center w-full py-20 text-gray-500">No new arrivals available at the moment.</p>
+                    <p className="text-center w-full py-12 sm:py-20 text-gray-500 text-sm sm:text-base">No new arrivals available at the moment.</p>
                 ) : (
                     newArrivals.map((product, index) => {
                         const imageUrl = getImageUrl(product?.img) || '/placeholder.jpg';
@@ -196,18 +197,18 @@ const NewArrivals = () => {
                         return (
                             <div
                                 key={product._id}
-                                className='min-w-[100%] sm:min-w-[50%] lg:min-w-[30%] relative rounded-lg overflow-hidden shadow'
+                                className='min-w-[80%] sm:min-w-[50%] md:min-w-[40%] lg:min-w-[30%] xl:min-w-[25%] relative rounded-lg overflow-hidden shadow-lg'
                             >
                                 <img
                                     src={imageUrl}
                                     alt={product?.name || 'New Arrival'}
-                                    className='w-full h-[500px] object-cover'
+                                    className='w-full h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] object-cover'
                                 />
 
-                                <div className='absolute bottom-0 left-0 right-0 bg-black/50 text-white p-4'>
+                                <div className='absolute bottom-0 left-0 right-0 bg-black/50 text-white p-3 sm:p-4'>
                                     <Link to={`/product/${product._id}`} className='block'>
-                                        <h4 className='font-medium'>{product.name}</h4>
-                                        <p className='mt-1'>${product.price}</p>
+                                        <h4 className='font-medium text-sm sm:text-base'>{product.name}</h4>
+                                        <p className='mt-1 text-sm sm:text-base'>₹{product.price?.toLocaleString()}</p>
                                     </Link>
                                 </div>
                             </div>

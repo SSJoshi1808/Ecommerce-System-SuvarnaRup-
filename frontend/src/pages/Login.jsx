@@ -33,19 +33,19 @@ const Login = () => {
     }
 
   return (
-    <div className='flex'>
-        <div className='w-full md:w-1/2 flex  flex-col justify-center items-center p-8 md:p-12'>
+    <div className='flex min-h-screen'>
+        <div className='w-full lg:w-1/2 flex flex-col justify-center items-center p-4 sm:p-6 md:p-8 lg:p-12'>
             <form 
             onSubmit={handleSubmit}
-            action="" className='w-full max-w-md bg-white p-8 rounded-lg border shadow-sm'>
-                <div className='flex justify-center mb-6'>
-                    <h2 className='text-xl font-medium'>SuvarnaRup</h2>
+            action="" className='w-full max-w-md bg-white p-6 sm:p-8 rounded-lg border shadow-sm'>
+                <div className='flex justify-center mb-4 sm:mb-6'>
+                    <h2 className='text-lg sm:text-xl font-medium'>SuvarnaRup</h2>
                 </div>
-                <h2 className='text-2xl font-bold text-center mb-6'>
+                <h2 className='text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6'>
                     Hey There!!
                 </h2>
-                <p className='text-center mb-6'>
-                    Enter Your Name and Password to login
+                <p className='text-center mb-4 sm:mb-6 text-sm sm:text-base'>
+                    Enter Your Email and Password to login
                 </p>
                 <div className='mb-4'>
                     <label className='block text-sm font-semibold mb-2'>Email</label>
@@ -53,35 +53,34 @@ const Login = () => {
                     type="email"
                     value={email}
                     onChange={(e)=>setEmail(e.target.value)}
-                    className='w-full p-2 border rounded'
+                    className='w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors'
                     placeholder='Enter your Email' />
                 </div>
-                <div className='mb-4'>
+                <div className='mb-6'>
                 <label className='block text-sm font-semibold mb-2'>Password</label>
                 <input 
                     type="password"
                     value={password}
                     onChange={(e)=>setPassword(e.target.value)}
-                    className='w-full p-2 border rounded'
+                    className='w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors'
                     placeholder='Enter your Password' />
                 </div>
                 <div >
-                    <button type='submit' className='w-full bg-black text-white p-2 rounded-lg font-semibold hover:bg-gray-800 transition'>
+                    <button type='submit' className='w-full bg-black text-white p-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors'>
                         Sign In
                     </button>
-                    <p className='mt-6 text-center text-sm '>
-                        Don't have an Account ??
-                        <Link to="/register" className='text-blue-500'>
+                    <p className='mt-4 sm:mt-6 text-center text-sm'>
+                        Don't have an Account?{' '}
+                        <Link to="/register" className='text-blue-500 hover:text-blue-700 transition-colors'>
                         Register
                         </Link>
                     </p>
                 </div>
             </form>
         </div>
-        <div className='hidden md:block w-1/2 bg-gray-800'>
+        <div className='hidden lg:block w-1/2 bg-gray-800'>
             <div className='h-full flex flex-col justify-center items-center'>
-                <img src={login} alt="Login to Account " className=' h-[750px] w-full object-cover' />
-
+                <img src={login} alt="Login to Account " className='h-full w-full object-cover' />
             </div>
         </div>
     </div>

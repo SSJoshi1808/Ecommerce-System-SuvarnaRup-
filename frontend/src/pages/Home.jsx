@@ -92,23 +92,26 @@ const Home = () => {
     fetchBestSellerProducts()
   },[dispatch])
   return (
-    <div><Hero />
-        <CollectionSection />
-        <NewArrivals />
+    <div className="space-y-8 sm:space-y-12">
+      <Hero />
+      <CollectionSection />
+      <NewArrivals />
 
-        {/* Best Seller */}
-        <h2 className='text-3xl text-center font-bold mb-4'>Best Seller</h2>
+      {/* Best Seller */}
+      <div className="px-4 sm:px-6">
+        <h2 className='text-2xl sm:text-3xl lg:text-4xl text-center font-bold mb-6 sm:mb-8'>Best Seller</h2>
         {bestSellerProduct?(<Productdetails productId={bestSellerProduct._id}/>):(
-          <p>Loading Best Seller Products </p>
+          <p className="text-center text-gray-600">Loading Best Seller Products...</p>
         )}
+      </div>
         
 
-        <div className='container mx-auto'>
-          <h2 className='text3xl text-center font-bold mb-4'>
-            SuvarnaRup Best Collection 
-          </h2>
-          <ProductGrid products={products} loading={loading} error={error}/>
-        </div>
+      <div className='container mx-auto px-4 sm:px-6'>
+        <h2 className='text-2xl sm:text-3xl lg:text-4xl text-center font-bold mb-6 sm:mb-8'>
+          SuvarnaRup Best Collection 
+        </h2>
+        <ProductGrid products={products} loading={loading} error={error}/>
+      </div>
     </div>
   )
 }

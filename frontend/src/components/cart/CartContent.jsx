@@ -76,56 +76,55 @@ const CartContent = () => {
     return cart?.products?.reduce((total, product) => total + (product.price * product.quantity), 0) || 0;
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className="text-center py-8">Loading...</div>;
+
+  if (!cart?.products || cart.products.length === 0) {
+    return (
+      <div className="text-center py-8">
+        <p className="text-gray-500 text-sm sm:text-base">Your cart is empty</p>
+      </div>
+    );
+  }
 
   return (
-    <div>
+    <div className="space-y-4">
       {cart?.products?.map((product) => (
-        <div key={product.productId} className='flex items-start justify-between py-4 border-b'>
-          <div className="flex item-start">
-          <img 
-  src={getImageUrl(product.img)}
-  alt={product.name || 'Product Image'} 
-  className='w-20 h-24 object-cover mr-4 rounded'
-  onError={(e) => e.target.src = '/placeholder.jpg'}
-/>
+        <div key={product.productId} className='flex items-start justify-between py-3 sm:py-4 border-b border-gray-100'>
+          <div className="flex items-start space-x-3 sm:space-x-4 flex-1 min-w-0">
+            <img 
+              src={getImageUrl(product.img)}
+              alt={product.name || 'Product Image'} 
+              className='w-16 h-16 sm:w-20 sm:h-24 object-cover rounded-lg flex-shrink-0'
+              onError={(e) => e.target.src = '/placeholder.jpg'}
+            />
 
-            <div>
-              <h3 className='text-lg font-medium'>{product.name}</h3>
-              <p className='text-sm text-gray-500'>
+            <div className="flex-1 min-w-0">
+              <h3 className='text-sm sm:text-base font-medium text-gray-900 truncate'>{product.name}</h3>
+              <p className='text-xs sm:text-sm text-gray-500 mt-1'>
                 ₹{product.price.toLocaleString()}
               </p>
-              <p className='text-xs text-gray-400'>
+              <p className='text-xs text-gray-400 mt-1'>
                 {product.category} - {product.collections}
               </p>
-              {/* <div className='flex items-center mt-2'>
-                <button 
-                  className='border rounded px-2 py-1 text-xl font-medium'
-                  onClick={() => handleQuantityChange(product, 'decrement')}
-                >
-                  -
-                </button>
-                <span className='mx-4'>{product.quantity}</span>
-                <button 
-                  className='border rounded px-2 py-1 text-xl font-medium'
-                  onClick={() => handleQuantityChange(product, 'increment')}
-                >
-                  +
-                </button>
-              </div> */}
+              <p className='text-xs sm:text-sm text-gray-600 mt-1'>
+                Qty: {product.quantity}
+              </p>
             </div>
           </div>
-          <div>
-            <p className='font-medium'>₹{(product.price * product.quantity).toLocaleString()}</p>
-            <button onClick={() => handleRemoveItem(product)}>
-              <RiDeleteBin3Line className='h-6 w-6 mt-2 text-red-600' />
+          <div className="flex flex-col items-end space-y-2">
+            <p className='font-medium text-sm sm:text-base'>₹{(product.price * product.quantity).toLocaleString()}</p>
+            <button 
+              onClick={() => handleRemoveItem(product)}
+              className='p-1 hover:bg-red-50 rounded-full transition-colors'
+            >
+              <RiDeleteBin3Line className='h-4 w-4 sm:h-5 sm:w-5 text-red-600' />
             </button>
           </div>
         </div>
       ))}
       {cart?.products?.length > 0 && (
-        <div className='mt-4 text-right'>
-          <p className='text-xl font-bold'>Total: ₹{calculateTotal().toLocaleString()}</p>
+        <div className='pt-4 border-t border-gray-200'>
+          <p className='text-lg sm:text-xl font-bold text-right'>Total: ₹{calculateTotal().toLocaleString()}</p>
         </div>
       )}
     </div>

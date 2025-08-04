@@ -4,18 +4,17 @@ import Footer from '../common/Footer';
 import { Outlet } from 'react-router-dom';
 
 const UserLayout = () => {
-  return (<>
-    {/*Header */}
-        <Header />
-    {/*MAin Content */} 
-     <main>
-      <Outlet />
-    </main> 
-    {/* Footer */}
-    <Footer />
-    
-    </>
-    
+  return (
+    <div className="min-h-screen flex flex-col">
+      {/*Header */}
+      <Header />
+      {/*MAin Content */} 
+      <main className="flex-grow">
+        <Outlet />
+      </main> 
+      {/* Footer */}
+      <Footer />
+    </div>
   )
 }
 

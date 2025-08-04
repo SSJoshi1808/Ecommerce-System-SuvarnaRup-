@@ -7,44 +7,44 @@ const AdminSidebar = () => {
     const handleLogout= ()=>{
         navigate("/");
     };
-    return <div className="p-6">
-        <div className="mb-6">
-            <Link to= "/admin" className="text-2xl font-medium">
+    return <div className="p-4 sm:p-6">
+        <div className="mb-4 sm:mb-6">
+            <Link to= "/admin" className="text-xl sm:text-2xl font-medium">
             SuvarnaRup
             </Link>
         </div>
-        <h2 className="text-xl font-medium mb-6 text-center">Admin Dashboard</h2>
-        <nav className="flex flex-col space-y-2">
-            <NavLink to= "/admin/users" className= {({isActive})=> isActive? "bg-gray-700 text-white py-4  px-4 rounded flex items-center space-x-2": "text-gray-300 hover:bg-gray-700 hover:text-white py-3 px-4 rounded flex items-center space-x-2"}>
-            <FaUser/>
-            <span>Users</span>
+        <h2 className="text-lg sm:text-xl font-medium mb-4 sm:mb-6 text-center">Admin Dashboard</h2>
+        <nav className="flex flex-col space-y-1 sm:space-y-2">
+            <NavLink to= "/admin/users" className= {({isActive})=> isActive? "bg-gray-700 text-white py-3 sm:py-4 px-3 sm:px-4 rounded flex items-center space-x-2 sm:space-x-3": "text-gray-300 hover:bg-gray-700 hover:text-white py-3 sm:py-4 px-3 sm:px-4 rounded flex items-center space-x-2 sm:space-x-3 transition-colors"}>
+            <FaUser className="text-sm sm:text-base"/>
+            <span className="text-sm sm:text-base">Users</span>
             </NavLink>
         </nav>
 
 
-            <NavLink to= "/admin/products" className= {({isActive})=> isActive? "bg-gray-700 text-white py-4  px-4 rounded flex items-center space-x-2": "text-gray-300 hover:bg-gray-700 hover:text-white py-3 px-4 rounded flex items-center space-x-2"}>
-            <FaBoxOpen/>
-            <span>Products</span>
+            <NavLink to= "/admin/products" className= {({isActive})=> isActive? "bg-gray-700 text-white py-3 sm:py-4 px-3 sm:px-4 rounded flex items-center space-x-2 sm:space-x-3": "text-gray-300 hover:bg-gray-700 hover:text-white py-3 sm:py-4 px-3 sm:px-4 rounded flex items-center space-x-2 sm:space-x-3 transition-colors"}>
+            <FaBoxOpen className="text-sm sm:text-base"/>
+            <span className="text-sm sm:text-base">Products</span>
             </NavLink>
 
 
-           <NavLink to= "/admin/orders" className= {({isActive})=> isActive? "bg-gray-700 text-white py-4  px-4 rounded flex items-center space-x-2": "text-gray-300 hover:bg-gray-700 hover:text-white py-3 px-4 rounded flex items-center space-x-2"}>
-            <FaClipboardList/>
-            <span>Orders</span>
+           <NavLink to= "/admin/orders" className= {({isActive})=> isActive? "bg-gray-700 text-white py-3 sm:py-4 px-3 sm:px-4 rounded flex items-center space-x-2 sm:space-x-3": "text-gray-300 hover:bg-gray-700 hover:text-white py-3 sm:py-4 px-3 sm:px-4 rounded flex items-center space-x-2 sm:space-x-3 transition-colors"}>
+            <FaClipboardList className="text-sm sm:text-base"/>
+            <span className="text-sm sm:text-base">Orders</span>
             </NavLink>
 
 
-            <NavLink to= "/admin/users" className= {({isActive})=> isActive? "bg-gray-700 text-white py-4  px-4 rounded flex items-center space-x-2": "text-gray-300 hover:bg-gray-700 hover:text-white py-3 px-4 rounded flex items-center space-x-2"}>
-            <FaStore/>
-            <span>Shop</span>
+            <NavLink to= "/admin/users" className= {({isActive})=> isActive? "bg-gray-700 text-white py-3 sm:py-4 px-3 sm:px-4 rounded flex items-center space-x-2 sm:space-x-3": "text-gray-300 hover:bg-gray-700 hover:text-white py-3 sm:py-4 px-3 sm:px-4 rounded flex items-center space-x-2 sm:space-x-3 transition-colors"}>
+            <FaStore className="text-sm sm:text-base"/>
+            <span className="text-sm sm:text-base">Shop</span>
             </NavLink>       
             
    
 
-            <div className="mt-6" >
-                <button onClick={handleLogout} className="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded flex items-center justify-center space-x-2">
-                  <FaSignOutAlt/>
-                  <span>
+            <div className="mt-4 sm:mt-6" >
+                <button onClick={handleLogout} className="w-full bg-red-500 hover:bg-red-600 text-white py-2 sm:py-3 px-3 sm:px-4 rounded flex items-center justify-center space-x-2 sm:space-x-3 transition-colors">
+                  <FaSignOutAlt className="text-sm sm:text-base"/>
+                  <span className="text-sm sm:text-base">
                     Logout</span>  </button></div>    
     </div>
 };

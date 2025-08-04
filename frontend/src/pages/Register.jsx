@@ -28,17 +28,17 @@ const Register = () => {
     };
 
   return (
-    <div className='flex'>
-        <div className='w-full md:w-1/2 flex  flex-col justify-center items-center p-8 md:p-12'>
-            <form  onSubmit={handleSubmit} action="" className='w-full max-w-md bg-white p-8 rounded-lg border shadow-sm'>
-                <div className='flex justify-center mb-6'>
-                    <h2 className='text-xl font-medium'>SuvarnaRup</h2>
+    <div className='flex min-h-screen'>
+        <div className='w-full lg:w-1/2 flex flex-col justify-center items-center p-4 sm:p-6 md:p-8 lg:p-12'>
+            <form onSubmit={handleSubmit} action="" className='w-full max-w-md bg-white p-6 sm:p-8 rounded-lg border shadow-sm'>
+                <div className='flex justify-center mb-4 sm:mb-6'>
+                    <h2 className='text-lg sm:text-xl font-medium'>SuvarnaRup</h2>
                 </div>
-                <h2 className='text-2xl font-bold text-center mb-6'>
+                <h2 className='text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6'>
                     Hey There!!
                 </h2>
-                <p className='text-center mb-6'>
-                    Enter Your Name and Password to register
+                <p className='text-center mb-4 sm:mb-6 text-sm sm:text-base'>
+                    Enter Your Name, Email and Password to register
                 </p>
                 <div className='mb-4'>
                     <label className='block text-sm font-semibold mb-2'>Name</label>
@@ -46,7 +46,7 @@ const Register = () => {
                     type="text"
                     value={name}
                     onChange={(e)=>setName(e.target.value)}
-                    className='w-full p-2 border rounded'
+                    className='w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors'
                     placeholder='Enter your Name' />
                 </div>
                 <div className='mb-4'>
@@ -55,23 +55,23 @@ const Register = () => {
                     type="email"
                     value={email}
                     onChange={(e)=>setEmail(e.target.value)}
-                    className='w-full p-2 border rounded'
+                    className='w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors'
                     placeholder='Enter your Email' />
                 </div>
-                <div className='mb-4'>
+                <div className='mb-6'>
                 <label className='block text-sm font-semibold mb-2'>Password</label>
                 <input 
                     type="password"
                     value={password}
                     onChange={(e)=>setPassword(e.target.value)}
-                    className='w-full p-2 border rounded'
+                    className='w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors'
                     placeholder='Enter your Password' />
                 </div>
                 <div >
                     <button 
                         type='submit' 
                         disabled={loading}
-                        className='w-full bg-black text-white p-2 rounded-lg font-semibold hover:bg-gray-800 transition disabled:bg-gray-400 disabled:cursor-not-allowed'
+                        className='w-full bg-black text-white p-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed'
                     >
                         {loading ? 'Signing up...' : 'Sign Up'}
                     </button>
@@ -80,19 +80,18 @@ const Register = () => {
                             {error}
                         </p>
                     )}
-                    <p className='mt-6 text-center text-sm '>
-                        Click here to {     }
-                        <Link to="/login" className='text-blue-500'>
+                    <p className='mt-4 sm:mt-6 text-center text-sm'>
+                        Already have an account?{' '}
+                        <Link to="/login" className='text-blue-500 hover:text-blue-700 transition-colors'>
                             Login
                         </Link>
                     </p>
                 </div>
             </form>
         </div>
-        <div className='hidden md:block w-1/2 bg-gray-800'>
+        <div className='hidden lg:block w-1/2 bg-gray-800'>
             <div className='h-full flex flex-col justify-center items-center'>
-                <img src={register} alt="Login to Account " className=' h-[750px] w-full object-cover' />
-
+                <img src={register} alt="Register Account " className='h-full w-full object-cover' />
             </div>
         </div>
     </div>
