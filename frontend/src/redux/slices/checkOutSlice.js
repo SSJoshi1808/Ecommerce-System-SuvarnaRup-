@@ -7,7 +7,7 @@ export const createCheckout = createAsyncThunk(
   async (checkoutdata, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/checkout`,
+        `http://localhost:9000/api/checkout`,
         checkoutdata,
         {
           headers: {

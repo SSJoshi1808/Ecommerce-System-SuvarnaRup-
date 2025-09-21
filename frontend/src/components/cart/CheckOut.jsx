@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import PayPalBtn from './PayPalBtn';
 import { createCheckout } from '../../redux/slices/checkOutSlice';
+import { clearCart } from '../../redux/slices/cartSlice';
 
 const CheckOut = () => {
   const navigate = useNavigate();
@@ -49,43 +50,62 @@ const CheckOut = () => {
       }
 
       validateShippingAddress();
-
-      const formattedProducts = cart.products.map(product => ({
-        productId: product.productId || product._id,
-        name: product.name,
-        quantity: product.quantity,
-        price: product.price,
-        image: Array.isArray(product.img) && product.img.length > 0 ? product.img[0] : product.img || ''
-      }));
-
-      const totalAmount = formattedProducts.reduce(
-        (total, product) => total + (product.price * product.quantity),
-        0
-      );
-
-      const checkoutData = {
-        user: user?._id,
-        checkOutItems: formattedProducts,
-        shippingAddress,
-        paymentMethod: 'PayPal',
-        totalPrice: totalAmount
-      };
-
-      const result = await dispatch(createCheckout(checkoutData)).unwrap();
-      setCheckoutID(result._id);
+      setCheckoutID('ready'); // Set to ready state for payment
     } catch (error) {
       console.error('Checkout error:', error);
-      alert(error.message || 'Failed to process checkout. Please try again.');
+      alert(error.message || 'Please fill in all required fields correctly.');
     }
   };
 
   const handlePaymentSuccess = async (details) => {
     try {
       console.log('Payment successful:', details);
+      
+      // Create order directly after successful payment
+      const orderData = {
+        user: user._id,
+        orderItem: cart.products.map(product => ({
+          productID: product.productId || product._id,
+          name: product.name,
+          image: Array.isArray(product.img) && product.img.length > 0 ? product.img[0] : product.img || '',
+          price: product.price,
+          quantity: product.quantity
+        })),
+        shippingAddress,
+        paymentMethod: 'PayPal',
+        totalPrice: cart.totalPrice,
+        isPaid: true,
+        paidAt: new Date(),
+        isDeliverd: false,
+        paymentStatus: 'paid',
+        paymentDetails: details
+      };
+
+      // Create order directly
+      const orderResponse = await fetch('http://localhost:9000/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        },
+        body: JSON.stringify(orderData)
+      });
+
+      if (!orderResponse.ok) {
+        const errorData = await orderResponse.json();
+        throw new Error(errorData.message || 'Failed to create order');
+      }
+
+      const createdOrder = await orderResponse.json();
+      console.log('Order created successfully:', createdOrder);
+      
+      // Clear cart after successful order
+      dispatch(clearCart());
+      
       navigate('/orderconfirmationpage');
     } catch (error) {
       console.error('Payment processing error:', error);
-      alert('There was an issue processing your payment. Please contact support.');
+      alert(`Payment successful but order creation failed: ${error.message}`);
     }
   };
 

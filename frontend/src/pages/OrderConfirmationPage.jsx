@@ -25,6 +25,7 @@ const OrderConfirmationPage = () => {
           </Link>
           <Link
             to="/profile"
+            state={{ orderCreated: true }}
             className="border border-pink-600 text-pink-600 hover:bg-pink-100 py-2 px-6 rounded-full transition"
           >
             View Orders

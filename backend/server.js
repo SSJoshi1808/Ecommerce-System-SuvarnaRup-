@@ -76,6 +76,18 @@ const adminRoutes = require("./routes/adminRoutes.js")
 // ✅ Load environment variables
 dotenv.config();
 
+// Set JWT secret if not provided
+if (!process.env.JWT_SECRET) {
+    process.env.JWT_SECRET = 'your_jwt_secret_key_here_12345';
+    console.log('JWT_SECRET not found in .env, using default');
+}
+
+// Set MongoDB URL if not provided
+if (!process.env.MONGO_URL) {
+    process.env.MONGO_URL = 'mongodb://localhost:27017/suvarnarup';
+    console.log('MONGO_URL not found in .env, using default');
+}
+
 const app = express();
 
 // ✅ Configure CORS correctly

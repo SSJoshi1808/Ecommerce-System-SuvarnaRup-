@@ -42,9 +42,9 @@ route.post("/",protect,async(req,res)=>{
 
         // Transform cart items to checkout items format
         const transformedItems = checkOutItems.map(item => ({
-            productId: item.productId,
+            productId: item.productID,
             name: item.name,
-            image: item.img,
+            image: item.image,
             price: parseFloat(item.price),
             quantity: item.quantity
         }));
@@ -123,7 +123,7 @@ route.post("/:id/finalize", protect, async (req, res) => {
 
         const finalOrder = await Order.create({
             user: checkout.user,
-            orderItems: checkout.checkOutItems,
+            orderItem: checkout.checkOutItems,
             shippingAddress: checkout.shippingAddress,
             paymentMethod: checkout.paymentMethod,
             totalPrice: checkout.totalPrice,

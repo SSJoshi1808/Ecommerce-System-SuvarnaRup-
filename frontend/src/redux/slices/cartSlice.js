@@ -15,7 +15,7 @@ const saveCartToStorage = (cart) => {
 // Fetch the cart from user or guest
 export const fetchCart = createAsyncThunk("cart/fetchCart", async ({ userId, guestId }, { rejectWithValue }) => {
     try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/cart`, {
+        const response = await axios.get(`http://localhost:9000/api/cart`, {
             params: { userId, guestId },
         });
         if (!response.data) {
@@ -32,7 +32,7 @@ export const fetchCart = createAsyncThunk("cart/fetchCart", async ({ userId, gue
 // Add to cart
 export const addToCart = createAsyncThunk("cart/addToCart", async ({ productId, quantity, category, collections, guestId, userId }, { rejectWithValue }) => {
     try {
-        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/cart`, {
+        const response = await axios.post(`http://localhost:9000/api/cart`, {
             productId,
             quantity,
             category,
@@ -68,7 +68,7 @@ export const updateCartItemQuantity = createAsyncThunk("cart/updateCartItemQuant
         }
         const validQuantity = parsedQuantity;
         
-        const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/cart`, {
+        const response = await axios.put(`http://localhost:9000/api/cart`, {
             productId,
             quantity: validQuantity,
             category,
@@ -94,7 +94,7 @@ export const removeFromCart = createAsyncThunk("cart/removeFromCart", async ({ p
         // Attempt to remove the item
         const response = await axios({
             method: "DELETE",
-            url: `${import.meta.env.VITE_BACKEND_URL}/api/cart`,
+            url: `http://localhost:9000/api/cart`,
             data: { productId, guestId, userId, category, collections },
         });
 
@@ -128,7 +128,7 @@ export const removeFromCart = createAsyncThunk("cart/removeFromCart", async ({ p
 export const mergeCart = createAsyncThunk("cart/mergeCart", async ({ guestId, userId }, { rejectWithValue }) => {
     try {
         const response = await axios.post(
-            `${import.meta.env.VITE_BACKEND_URL}/api/cart/merge`,
+            `http://localhost:9000/api/cart/merge`,
             { guestId, userId },
             {
                 headers: {
