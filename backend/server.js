@@ -65,51 +65,54 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes.js");
-const productRoutes = require("./routes/productRoutes.js")
+const productRoutes = require("./routes/productRoutes.js");
 const checkoutRoutes = require("./routes/checkOutRoutes.js");
 const cartRoutes = require("./routes/cartRoutes.js");
 const uploadRoutes = require("./routes/uploadRoutes.js");
 const subscribeRoutes = require("./routes/subsribeRoutes.js");
 const orderRoutes = require("./routes/orderRoutes.js");
-const adminRoutes = require("./routes/adminRoutes.js")
+const adminRoutes = require("./routes/adminRoutes.js");
 
 // ✅ Load environment variables
 dotenv.config();
 
 // Set JWT secret if not provided
 if (!process.env.JWT_SECRET) {
-    process.env.JWT_SECRET = 'your_jwt_secret_key_here_12345';
-    console.log('JWT_SECRET not found in .env, using default');
+  process.env.JWT_SECRET = "your_jwt_secret_key_here_12345";
+  console.log("JWT_SECRET not found in .env, using default");
 }
 
 // Set MongoDB URL if not provided
 if (!process.env.MONGO_URL) {
-    process.env.MONGO_URL = 'mongodb://localhost:27017/suvarnarup';
-    console.log('MONGO_URL not found in .env, using default');
+  process.env.MONGO_URL = "mongodb://localhost:27017/suvarnarup";
+  console.log("MONGO_URL not found in .env, using default");
 }
 
 const app = express();
 
 // ✅ Configure CORS correctly
-const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"];
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "https://your-frontend.vercel.app", // <-- add your Vercel frontend domain here
+];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
-
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(express.json());
-
-const PORT = process.env.PORT || 9000;
 
 // ✅ Connect to Database
 connectDB();
@@ -125,12 +128,8 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/admin", adminRoutes);
 
 app.get("/", (req, res) => {
-    res.send("Welcome to SuvarnaRup");
+  res.send("Welcome to SuvarnaRup Backend");
 });
 
- ✅ Start the Server
-app.listen(PORT, () => {
-    //console.log(`Server is running on port ${PORT}`);
-});
-
-//module.exports = app;
+// 🚀 Instead of app.listen, export as handler for Vercel
+module.exports = app;
